@@ -1,0 +1,6 @@
+Patient 1 has a fever and runny nose.
+Patient 2 has a rash.
+Patient 1 is sweaty with chills, likely the flu.
+Patient 2 was given steroid cream and the rash has subsided.
+Patient 1 stayed overnight and was given IV fluids. This morning the patient's temperature is much better.
+Patient 2 was discharged.
