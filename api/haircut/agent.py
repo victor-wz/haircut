@@ -82,7 +82,7 @@ class Agent:
 		return messages.data[0].content[0].text.value
 
 
-	def process_text_payload(self, patient_id: int, text: str,patient_history=None) -> str:
+	def process_text_payload(self, patient_id: int, text: str, patient_history=None) -> str:
 		if patient_id not in self._patients:
 			# create thread and add first message if new patient
 			self.add_patient(patient_id, first_message=text,patient_history=patient_history)
