@@ -1,10 +1,11 @@
 from openai import OpenAI
-API_KEY = "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"
+import os
 
 class Transcriber:
     
 	def __init__(self):
-		self._client = OpenAI(api_key=API_KEY)
+		api_key = os.environ.get("REACT_APP_OPENAI_API_KEY")
+		self._client = OpenAI(api_key=api_key)
 	
 	def transcribe(self, audio_file):
 		# Save the audio file to a temporary location
