@@ -25,3 +25,5 @@ yarn-error.log*
 api/venv/*
 api/__pycache__/*
 .env
+api/haircut/__pycache__/*
+

@@ -44,7 +44,7 @@ class Agent:
 			file_ids = [file.id for file in files]
 			messages[0]["file_ids"]=file_ids
 
-		thread = self.client.beta.threads.create(messages)
+		thread = self.client.beta.threads.create(messages=messages)
 
 		return thread.id
 
