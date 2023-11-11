@@ -18,13 +18,13 @@ def text_payload():
 
 @app.route('/api/patient/audio_payload', methods=['POST'])
 def audio_payload():
-    # Transcribe audio and pass as text payload.
     if 'audio' not in request.files:
         return jsonify({'error': 'No file part'}), 400
     audio_file = request.files['audio']
     transcript = oai_transcriber.transcribe(audio_file)
     # TODO: patient id.
-    return oai_agent.process_text_payload(0, transcript)
+    ag_res = oai_agent.process_text_payload(0, transcript)
+    return jsonify(ag_res)
 
 if __name__ == '__main__':
     app.run(debug=True)

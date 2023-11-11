@@ -1,5 +1,5 @@
 from openai import OpenAI
-API_KEY = "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"
+API_KEY = "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"
 
 class Transcriber:
     
@@ -7,9 +7,12 @@ class Transcriber:
 		self._client = OpenAI(api_key=API_KEY)
 	
 	def transcribe(self, audio_file):
-		audio_file= open(audio_file) # modify file 
+		# Save the audio file to a temporary location
+		temp_path = 'temp.wav'
+		audio_file.save(temp_path)
+		file = open(temp_path, "rb")
 		transcript = self._client.audio.transcriptions.create(
 			model="whisper-1", 
-			file=audio_file
+			file=file
 		)
-		return transcript
+		return transcript.text
