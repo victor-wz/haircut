@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
+import UploadWav from './Audio';
+
 import ChatBotApp from './components/ChatBotApp';
 import Recorder from './components/Recorder';
 
@@ -17,6 +19,7 @@ function App() {
     <div className="App">
       <ChatBotApp />
       <Recorder />
+      <UploadWav />
     </div>
   );
 }
