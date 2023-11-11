@@ -14,4 +14,4 @@ class Agent:
 			self.add_patient(patient_id)
 		
 		# TODO: Make query to OpenAI API
-		return "Payload processed"
+		return text
