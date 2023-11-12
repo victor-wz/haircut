@@ -13,8 +13,8 @@ class Agent:
 		# initialise assistant
 		self.assistant = self.client.beta.assistants.create(
 		name="Medical assistant",
-		description="You log medical notes",
-  		instructions="When I give you a statement about medical notes of a patient, you remember them and reply with one word: Noted. ",
+		description="You log medical notes and answer questions about them",
+		instructions="When I give you a statement about medical notes of a patient, you remember them and reply with one word: Noted. Otherwise if I ask you a question, you answer the question.",
 		model="gpt-4-1106-preview",
 		tools=[{"type": "code_interpreter"}],
 )
