@@ -7,14 +7,14 @@ import { Mic, StopFill } from 'react-bootstrap-icons';
 export default function Recorder(props) {
 
     const { status, startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({ audio: true });
-    const textHistoryObj = props.textHistoryObj;
+    const patientTextHistory = props.patientTextHistory;
 
     var recording = status === "recording" || status === "acquiring_media" || status === "stopping";
 
     React.useEffect(() => {
 
         async function uploadVoice() {
-          textHistoryObj.append("Uploading audio...");
+            patientTextHistory.append("Uploading audio...");
           const audioBlob = await fetch(mediaBlobUrl).then((r) => r.blob());
           const audiofile = new File([audioBlob], "audiofile.mpeg", {
             type: "audio/mpeg",
@@ -26,9 +26,9 @@ export default function Recorder(props) {
           axios.post('http://127.0.0.1:5000/api/patient/audio_payload', formData)
           .then(response => {
             console.log(response.data);
-            textHistoryObj.startResponse();
-            textHistoryObj.append(response.data);
-            textHistoryObj.endResponse();
+              patientTextHistory.startResponse();
+              patientTextHistory.append(response.data);
+              patientTextHistory.endResponse();
           })
           .catch(error => {
             console.error('Error uploading WAV file:', error);
@@ -55,7 +55,7 @@ export default function Recorder(props) {
                 hidden={props.hidden || !recording}
             ><StopFill/>
             </Button>
-            <audio src={mediaBlobUrl} controls autoPlay loop />
+            {/* <audio src={mediaBlobUrl} controls autoPlay loop /> */}
         </>
       );
 

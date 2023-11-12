@@ -17,7 +17,7 @@ export default function ChatbotApp(props) {
   });
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
-  const textHistoryObj = props.textHistoryObj;
+  const patientTextHistory = props.patientTextHistory;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,13 +25,13 @@ export default function ChatbotApp(props) {
 
     console.log("Prompt: ", prompt);
 
-    textHistoryObj.startPrompt();
-    textHistoryObj.append(prompt);
-    textHistoryObj.endPrompt();
+    patientTextHistory.startPrompt();
+    patientTextHistory.append(prompt);
+    patientTextHistory.endPrompt();
 
     try {
       // New
-      textHistoryObj.startResponse();
+      patientTextHistory.startResponse();
       const stream = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
         messages: [{ "role": "user", "content": prompt}],
@@ -41,10 +41,10 @@ export default function ChatbotApp(props) {
         console.log(part.choices[0].delta);
 
         if (part.choices[0].delta.content) {
-          textHistoryObj.append(part.choices[0].delta.content);
+          patientTextHistory.append(part.choices[0].delta.content);
         }
       }
-      textHistoryObj.endResponse();
+      patientTextHistory.endResponse();
 
       // const result = await openai.chat.completions.create({
       //   model: "gpt-3.5-turbo",
@@ -54,31 +54,31 @@ export default function ChatbotApp(props) {
       //console.log("response", result.data.choices[0].text);
     } catch (e) {
       //console.log(e);
-      textHistoryObj.appendResponse("Something is going wrong, Please try again.");
+      patientTextHistory.appendResponse("Something is going wrong, Please try again.");
     }
     setLoading(false);
   };
 
 
   return (
-    <>
+    <div className="chat-bot-app">
       <div className="text-history">
-        <div dangerouslySetInnerHTML={{__html: textHistoryObj.text()}}></div>
+        <div dangerouslySetInnerHTML={{ __html: patientTextHistory.text() }}></div>
       </div>
 
       <div className="input-container">
         <Form onSubmit={handleSubmit}>
           <Row className="mb-3">
-          <Col md={10}>
+          <Col md={11}>
             <Form.Control
               type="text"
               value={prompt}
-              placeholder="Please ask to openai"
+              placeholder="Type a note or query..."
               onChange={(e) => setPrompt(e.target.value)}
               className="text-input"
             ></Form.Control>
             </Col>
-            <Col md={2}>
+            <Col md={1}>
             <Button
               variant="dark"
               disabled={loading || prompt.length === 0}
@@ -89,7 +89,7 @@ export default function ChatbotApp(props) {
               {loading ?  <Spinner animation="border" role="status" size="sm"/> : <Send/>}
             </Button>
             <Recorder 
-              textHistoryObj={textHistoryObj} 
+                patientTextHistory={patientTextHistory} 
               hidden={prompt.length > 0}
               patientId={props.patientId}
             />
@@ -100,6 +100,6 @@ export default function ChatbotApp(props) {
 
 
       
-    </>
+    </div>
   );
 };
