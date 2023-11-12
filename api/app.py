@@ -35,6 +35,7 @@ def text_payload():
     else:
         patient_data = None
     print(patient_id)
+    print(patient_data)
     ag_res = oai_agent.process_text_payload(int(patient_id), text,patient_data)
     mock_streaming(ag_res)
     return jsonify(ag_res)
