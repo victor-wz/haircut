@@ -7,6 +7,8 @@ export default function Recorder(props) {
     const { status, startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({ audio: true });
     const textHistoryObj = props.textHistoryObj;
 
+    var recording = status === "recording" || status === "acquiring_media" || status === "stopping";
+
     React.useEffect(() => {
 
         async function uploadVoice() {
@@ -34,6 +36,10 @@ export default function Recorder(props) {
         }
     
       }, [mediaBlobUrl]);
+
+      React.useEffect(() => {
+        console.log(status)
+      }, [status]);
 
 
     return (
