@@ -4,6 +4,7 @@ import time
 from flask_socketio import SocketIO
 from haircut.agent import Agent
 from haircut.transcribe import Transcriber
+import os
 
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -27,7 +28,9 @@ def text_payload():
     data = request.get_json()
     patient_id = data['patient_id']
     text = data['text']
-    ag_res = oai_agent.process_text_payload(int(patient_id), text)
+    dir = 'examples/patient_1'
+    patient_data = [os.path.join(dir,file) for file in os.listdir('examples/patient_1')]
+    ag_res = oai_agent.process_text_payload(int(patient_id), text,patient_data)
     mock_streaming(ag_res)
     return jsonify(ag_res)
 

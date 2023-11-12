@@ -14,9 +14,11 @@ class Agent:
 		self.assistant = self.client.beta.assistants.create(
 		name="Medical assistant",
 		description="You log medical notes and answer questions about them",
-		instructions="When I give you a statement about medical notes of a patient, you remember them and reply with one word: Noted. Otherwise if I ask you a question, you answer the question.",
+		instructions="When I give you a statement about medical notes of a patient, you remember them and reply with one word: Noted."
+		 +"Otherwise if I ask you a question, you answer the question."
+		 +"When I ask for you to summarise the patient notes you succintly summarise the information contained in all of the files you have been given.",
 		model="gpt-4-1106-preview",
-		tools=[{"type": "code_interpreter"}],
+		tools=[{"type": "retrieval"}],
 )
 
 	def add_patient(self, patient_id: int,first_message,patient_history=None) -> None:
@@ -28,7 +30,7 @@ class Agent:
 	def create_thread(self, first_message, patient_history=None):
 		# patient history is list of files that you want
 		# returns id of thread created  
-		
+
 		messages=[
 			{
 				"role": "user",
@@ -47,12 +49,15 @@ class Agent:
 
 		return thread.id
 
-	def add_message(self,thread_id,message):
+	def add_message(self,thread_id,message,patient_history=None):
 		# add new message, message is just text
 		# thread_id is id corresponding to patient
+
 		new_message = self.client.beta.threads.messages.create(thread_id=thread_id,
 													role="user",
-													content=message
+													content=message,
+													#file_ids=[file.id],
+
 )
 		return None
 	
@@ -71,7 +76,6 @@ class Agent:
 			status = self.client.beta.threads.runs.retrieve(
 			  thread_id=thread_id,
 			  run_id=run.id,
-			#   instructions="When I give you a statement about medical notes of a patient, you remember them and reply with one word: Noted. Otherwise if I ask you a question, you answer the question."
 			  ).status
 			if status == 'completed':
 				completed = True
@@ -84,11 +88,13 @@ class Agent:
 
 
 	def process_text_payload(self, patient_id: int, text: str, patient_history=None) -> str:
+		# patient history is list of paths to files
 		if patient_id not in self._patients:
 			# create thread and add first message if new patient
+			# can i just print "loading dataset for patient x here"
 			self.add_patient(patient_id, first_message=text,patient_history=patient_history)
 		else:
 			# add information to thread
-			self.add_message(self._patients[patient_id],message=text)
+			self.add_message(self._patients[patient_id],message=text,patient_history=patient_history)
 
 		return self.run(self._patients[patient_id])
