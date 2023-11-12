@@ -34,8 +34,6 @@ def text_payload():
         patient_data = [os.path.join(dir,file) for file in os.listdir(dir) if file.endswith(tuple(allowed_extensions))]
     else:
         patient_data = None
-    print(patient_id)
-    print(patient_data)
     ag_res = oai_agent.process_text_payload(int(patient_id), text,patient_data)
     mock_streaming(ag_res)
     return jsonify(ag_res)
@@ -59,9 +57,9 @@ def summary():
     data = request.get_json()
     patient_id = data['patient_id']
     values = data['values']
-    summary_prompt = "Summarize the patient data in json format with the fields " + values 
+    summary_prompt = "Summarize the patient data in a html list with the fields " + values 
     ag_res = oai_agent.process_text_payload(patient_id, summary_prompt)
-    return jsonify({"summary":ag_res})
+    return {"summary":ag_res}
 
 if __name__ == '__main__':
     socketio.run(debug=True)

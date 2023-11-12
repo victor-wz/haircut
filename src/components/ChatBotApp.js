@@ -35,15 +35,37 @@ export default function ChatbotApp(props) {
     // Listen for updates from the server
     socket.on('update_output', (data) => {
       setLoading(false);
-    if (!data.partial_result.startsWith('!!!')) {
-      props.patientTextHistory.append(' ' + data.partial_result)
-      // setOutput((prevOutput) => prevOutput + ' ' + data.partial_result);
-      }
-    else {
+    if (data.partial_result.startsWith('!!!')) {
       // setShowAlert(true);
       const cleanedContent = data.partial_result.replace(/!/g, '');
-      props.patientTextHistory.appendAlert("Request made for " + cleanedContent + ".")
+      const values = "patient name, age, presenting problem, and history"
+      axios.post('http://127.0.0.1:5000/api/patient/summary', { values: values, patient_id: props.patientId })
+      .then(response => {
+        console.log(response.data);
+        props.patientTextHistory.appendAlert("Request made for " + cleanedContent + " with patient details \n <ul>" + response.data.summary.split("<ul>")[1].split("</ul>")[0] + "</ul>")
+      })
+      .catch(error => {
+        console.error('Error submitting text:', error);
+      });
       // setIgnoredContent(cleanedContent);
+      }
+    else if (data.partial_result.startsWith('???')) {
+      // setShowAlert(true);
+      const cleanedContent = data.partial_result.replace(/\?/g, '');
+      const values = "patient name, age, presenting problem, and history"
+      axios.post('http://127.0.0.1:5000/api/patient/summary', { values: values, patient_id: props.patientId })
+      .then(response => {
+        console.log(response.data);
+        props.patientTextHistory.appendAlert("Prescription made for " + cleanedContent + " with patient details \n <ul>" + response.data.summary.split("<ul>")[1].split("</ul>")[0] + "</ul>")
+      })
+      .catch(error => {
+        console.error('Error submitting text:', error);
+      });
+      // setIgnoredContent(cleanedContent);
+      }
+    else {
+      props.patientTextHistory.append(' ' + data.partial_result)
+      // setOutput((prevOutput) => prevOutput + ' ' + data.partial_result);
     }
     });
 
