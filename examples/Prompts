@@ -1,0 +1,24 @@
+Patient 1 - WARD
+
+Prompt: Can I get a summary of Mr Simon Downs' hospital admission?
+
+Prompt: Can I have an overview of his medical history?
+
+Prompt: What were the results of his most recent bloodwork?
+
+Note: The patient is to be discharged on 12th November 2023. I prescribe Prednisone 20 mg twice per day and Theo-24 400 mg per day.
+
+Action: Arrange for the patient to have an echocardiogram for further evaluation of his congestive heart failure later on the day of discharge.
+
+Patient 2 - CLINIC
+
+Prompt: What is the gestation age of Ms Taylor Evanson?
+
+Prompt: What are the results of her most recent ultrasound?
+
+Prompt: What is her current treatment?
+
+Action: Schedule a check-up appointment with the patient at her earliest convenience next week.
+
+
+
