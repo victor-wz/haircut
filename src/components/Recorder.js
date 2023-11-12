@@ -1,6 +1,7 @@
 import { ReactMediaRecorder, useReactMediaRecorder } from "react-media-recorder";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button';
 
 export default function Recorder(props) {
 
@@ -43,11 +44,11 @@ export default function Recorder(props) {
 
 
     return (
-        <div>
-          <p>{status}</p>
-          <button onClick={startRecording}>Start Recording</button>
+        <div className="recorder">
+          {/* <p>{status}</p> */}
+          <Button variant='success' onClick={startRecording}>Start Recording</Button>
           {/* <button onClick={() => {stopRecording(); upload(mediaBlobUrl)}}>Stop Recording</button> */}
-          <button onClick={stopRecording}>Stop Recording</button>
+          <Button variant='danger' onClick={stopRecording}>Stop Recording</Button>
           <audio src={mediaBlobUrl} controls autoPlay loop />
         </div>
       );
