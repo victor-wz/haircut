@@ -54,6 +54,14 @@ def audio_payload():
     mock_streaming("</p><p><strong>Sephora:</strong> " + ag_res)
     return jsonify({"response":ag_res,"transcript":transcript})
 
+@app.route('/api/patient/summary', methods=['POST'])
+def summary():
+    data = request.get_json()
+    patient_id = data['patient_id']
+    values = data['values']
+    summary_prompt = "Summarize the patient data in json format with the fields " + values 
+    ag_res = oai_agent.process_text_payload(patient_id, summary_prompt)
+    return jsonify({"summary":ag_res})
 
 if __name__ == '__main__':
     socketio.run(debug=True)
