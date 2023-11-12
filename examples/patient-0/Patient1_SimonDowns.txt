@@ -1,7 +1,8 @@
-Patient Description:
+PATIENT DESCRIPTION:
 A 49-year-old man with respiratory distress, history of coronary artery disease with prior myocardial infarctions, and recently admitted with pneumonia and respiratory failure.
 
-SUMMARY: The patient is a 49-year-old man who was admitted to the hospital in respiratory distress, and had to be intubated shortly after admission to the emergency room. The patient’s past history is notable for a history of coronary artery disease with prior myocardial infarctions in 1995 and 1999. The patient has recently been admitted to the hospital with pneumonia and respiratory failure. The patient has been smoking up until three to four months previously. On the day of admission, the patient had the sudden onset of severe dyspnea and called an ambulance. The patient denied any gradual increase in wheezing, any increase in cough, any increase in chest pain, any increase in sputum prior to the onset of his sudden dyspnea.
+SUMMARY: 
+The patient is a 49-year-old man who was admitted to the hospital in respiratory distress, and had to be intubated shortly after admission to the emergency room. The patient’s past history is notable for a history of coronary artery disease with prior myocardial infarctions in 1995 and 1999. The patient has recently been admitted to the hospital with pneumonia and respiratory failure. The patient has been smoking up until three to four months previously. On the day of admission, the patient had the sudden onset of severe dyspnea and called an ambulance. The patient denied any gradual increase in wheezing, any increase in cough, any increase in chest pain, any increase in sputum prior to the onset of his sudden dyspnea.
 
 
 ADMISSION PHYSICAL EXAMINATION:
@@ -17,6 +18,47 @@ ADMISSION DIAGNOSIS:
 3. Coronary artery disease.
 4. History of hypertension.
 
-HOSPITAL COURSE: The patient was admitted to the Special Care Unit and intubated. He received intravenous antibiotic therapy with Levaquin. He received intravenous diuretic therapy. He received hand-held bronchodilator therapy. The patient also was given intravenous steroid therapy with Solu-Medrol. The patient’s course was one of gradual improvement, and after approximately three days, the patient was extubated. He continued to be quite dyspneic, with wheezes as well as basilar rales. After pulmonary consultation was obtained, the pulmonary consultant felt that the patient’s overall clinical picture suggested that he had a
-significant element of congestive heart failure. With this, the patient was placed on increased doses of Lisinopril and Digoxin, with improvement of his respiratory status. On the day of discharge, the patient had minimal basilar rales; his chest also showed minimal expiratory wheezes; he had no edema; his heart rate was regular; his abdomen was soft; and his neck veins were not distended. It was, therefore, felt that the patient was stable for further management on an outpatient basis.
-DIAGNOSTIC DATA: The patient’s admission laboratory data was notable for his initial blood gas, which showed a pH of 7.02 with a pCO2 of 118 and a pO2 of 103. The patient’s electrocardiogram showed nonspecific ST-T wave changes. The patent’s CBC showed a white count of 24,000, with 56% neutrophils and 3% bands.
+HOSPITAL COURSE: 
+The patient was admitted to the Special Care Unit and intubated. He received intravenous antibiotic therapy with Levaquin. He received intravenous diuretic therapy. He received hand-held bronchodilator therapy. The patient also was given intravenous steroid therapy with Solu-Medrol. The patient’s course was one of gradual improvement, and after approximately three days, the patient was extubated. He continued to be quite dyspneic, with wheezes as well as basilar rales. After pulmonary consultation was obtained, the pulmonary consultant felt that the patient’s overall clinical picture suggested that he had a significant element of congestive heart failure. With this, the patient was placed on increased doses of Lisinopril and Digoxin, with improvement of his respiratory status. On the day of discharge, the patient had minimal basilar rales; his chest also showed minimal expiratory wheezes; he had no edema; his heart rate was regular; his abdomen was soft; and his neck veins were not distended. It was, therefore, felt that the patient was stable for further management on an outpatient basis.
+
+DIAGNOSTIC DATA: 
+The patient’s admission laboratory data was notable for his initial blood gas, which showed a pH of 7.02 with a pCO2 of 118 and a pO2 of 103. The patient’s electrocardiogram showed nonspecific ST-T wave changes. The patent’s CBC showed a white count of 24,000, with 56% neutrophils and 3% bands.
+
+ALLERGIES:
+The patient reports no known drug allergies.
+
+MEDICATION HISTORY:
+Prior to admission, the patient was taking the following medications:
+Aspirin for coronary artery disease
+Amlodipine for hypertension
+Albuterol inhaler for occasional wheezing
+Nitroglycerin as needed for chest pain
+
+SOCIAL HISTORY:
+Occupation: The patient works as an office manager.
+Alcohol: Reports occasional alcohol use, approximately 1-2 drinks per week.
+Substance Use: Denies illicit drug use.
+
+FAMILY HISTORY:
+The patient's father had a history of coronary artery disease and passed away from a myocardial infarction at the age of 60.
+Mother is alive with a history of hypertension.
+
+PREVIOUS MEDICAL VISITS:
+The patient had routine follow-up visits with a primary care physician for management of hypertension and coronary artery disease.
+No recent hospitalizations or emergency room visits before the current admission.
+Compliance with medications has been generally good, with occasional lapses noted in the use of inhalers.
+
+IMAGING STUDIES:
+Chest X-ray on admission showed bilateral infiltrates consistent with pneumonia.
+Previous cardiac catheterization in 2005 revealed significant coronary artery disease, with stents placed in the left anterior descending artery.
+
+FOLLOW-UP RECOMMENDATIONS:
+Follow-up with the primary care physician within two weeks for medication adjustment and further management.
+Referral to a cardiologist for a stress test to assess cardiac function and ischemic risk.
+Pulmonary function tests to evaluate the severity of chronic obstructive pulmonary disease and guide further respiratory management.
+
+PATIENT EDUCATION:
+Emphasize the importance of smoking cessation for overall respiratory and cardiovascular health.
+Provide education on proper use of inhalers and medications to manage chronic conditions.
+Discuss lifestyle modifications, including a heart-healthy diet and regular exercise.
+
