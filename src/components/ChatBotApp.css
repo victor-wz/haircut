@@ -41,5 +41,27 @@
 }
 
 .btn.btn-danger {
-    margin-left: 5px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.btn.btn-success {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.text-container{
+    margin-left: 20px;
+}
+
+.patient-id-container{
+    margin-left: 20px;
+}
+
+.form-input{
+    margin-top: 15px;
+}
+
+.text-button{
+    margin-top: 15px;
 }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button';
 
 const TextForm = () => {
   const [text, setText] = useState('');
@@ -25,18 +26,18 @@ const TextForm = () => {
   };
 
   return (
-	<div>
-	<label>
+	<div className="text-container">
+	{/* <label>
 	  Patient ID:
 	  <input type="number" value={patientId} onChange={handlePatientIdChange} />
-	</label>
+	</label> */}
 	<br />
 	<label>
 	  Enter Text:
 	  <input type="text" value={text} onChange={handleChange} />
 	</label>
 	<br />
-	<button onClick={handleSubmit}>Submit Text</button>
+	<Button className = "text-button" variant='secondary' onClick={handleSubmit}>Submit Text</Button>
   </div>
   );
 };

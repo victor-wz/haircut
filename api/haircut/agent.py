@@ -66,7 +66,7 @@ class Agent:
 		run = self.client.beta.threads.runs.create(
 			thread_id=thread_id,
 			assistant_id=self.assistant.id,
-			instructions="When I give you a statement about medical notes of a patient, you remember them and reply with one word: Noted. Otherwise if I ask you a question, you answer the question."
+			instructions="When I give you a statement about medical notes of a patient, you remember them and reply with one word: Noted. Otherwise if I ask you a question, you answer the question. If I ask you to request a medical procedure, such as an xray, mri etc. then add `!!!<the name of the procedure>!!! <procedure> requested` to your response. Your response will at most be 30 words long so be concise."
 			)
 		
 		completed = False
