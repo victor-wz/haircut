@@ -28,7 +28,7 @@ def text_payload():
     patient_id = data['patient_id']
     text = data['text']
     ag_res = oai_agent.process_text_payload(int(patient_id), text)
-    # mock_streaming(ag_res)
+    mock_streaming(ag_res)
     return jsonify(ag_res)
 
 @app.route('/api/patient/audio_payload', methods=['POST'])
@@ -38,9 +38,11 @@ def audio_payload():
     audio_file = request.files['audio']
     patient_id = request.form.get('patient_id')
     transcript = oai_transcriber.transcribe(audio_file)
+    #print(transcript)
+    mock_streaming(transcript)
     ag_res = oai_agent.process_text_payload(int(patient_id), transcript)
-    # mock_streaming(ag_res)
-    return jsonify(ag_res)
+    mock_streaming(ag_res)
+    return jsonify({"response":ag_res,"transcript":transcript})
 
 if __name__ == '__main__':
     socketio.run(debug=True)
