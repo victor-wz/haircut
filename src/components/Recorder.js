@@ -10,7 +10,7 @@ export default function Recorder(props) {
     React.useEffect(() => {
 
         async function uploadVoice() {
-          textHistoryObj.appendResponse("Uploading audio...");
+          textHistoryObj.append("Uploading audio...");
           const audioBlob = await fetch(mediaBlobUrl).then((r) => r.blob());
           const audiofile = new File([audioBlob], "audiofile.mpeg", {
             type: "audio/mpeg",
@@ -20,7 +20,9 @@ export default function Recorder(props) {
           axios.post('http://127.0.0.1:5000/api/patient/audio_payload', formData)
           .then(response => {
             console.log(response.data);
-            textHistoryObj.appendResponse(response.data);
+            textHistoryObj.startResponse();
+            textHistoryObj.append(response.data);
+            textHistoryObj.endResponse();
           })
           .catch(error => {
             console.error('Error uploading WAV file:', error);
