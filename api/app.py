@@ -20,7 +20,7 @@ def mock_streaming(text):
     # Beause openai are gimps.
     for word in text.split(" "):
         socketio.emit('update_output', {'partial_result': word})
-        time.sleep(0.1)
+        time.sleep(0.15)
 
 @app.route('/api/patient/text_payload', methods=['POST'])
 def text_payload():
@@ -43,6 +43,8 @@ def audio_payload():
     ag_res = oai_agent.process_text_payload(int(patient_id), transcript)
     mock_streaming(ag_res)
     return jsonify({"response":ag_res,"transcript":transcript})
+
+
 
 if __name__ == '__main__':
     socketio.run(debug=True)
