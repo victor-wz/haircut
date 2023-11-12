@@ -1,5 +1,8 @@
 import { useState } from "react"
 import './ChatBotApp.css';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { Row, Col } from 'react-bootstrap';
 
 const OpenAI = require("openai");
 
@@ -60,21 +63,30 @@ export default function ChatbotApp(props) {
         <div dangerouslySetInnerHTML={{__html: textHistoryObj.text()}}></div>
       </div>
 
-      <div>
-        <form onSubmit={handleSubmit}>
-          <textarea
-            type="text"
-            value={prompt}
-            placeholder="Please ask to openai"
-            onChange={(e) => setPrompt(e.target.value)}
-          ></textarea>
-          <button
-            disabled={loading || prompt.length === 0}
-            type="submit"
-          >
-            {loading ? "Generating..." : "Generate"}
-          </button>
-        </form>
+      <div className="input-container">
+        <Form onSubmit={handleSubmit}>
+          <Row className="mb-3">
+          <Col md={10}>
+            <Form.Control
+              type="text"
+              value={prompt}
+              placeholder="Please ask to openai"
+              onChange={(e) => setPrompt(e.target.value)}
+              className="text-input"
+            ></Form.Control>
+            </Col>
+            <Col md={2}>
+            <Button
+              variant="dark"
+              disabled={loading || prompt.length === 0}
+              type="submit"
+              className="send-button"
+            >
+              {loading ? "Generating..." : "Generate"}
+            </Button>
+            </Col>
+          </Row>
+        </Form>
       </div>
       
     </>
