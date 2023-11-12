@@ -30,7 +30,7 @@ export default function Recorder(props) {
           axios.post('http://127.0.0.1:5000/api/patient/audio_payload', formData)
           .then(response => {
             console.log(response.data);
-                patientTextHistory.startPrompt();
+                // patientTextHistory.startPrompt();
                 // patientTextHistory.append(response.data.transcript);
                 // patientTextHistory.endPrompt();
 
