@@ -27,9 +27,9 @@ function App() {
     <div className="App">
       <PatientSelector patientId={patientId} setPatientId={setPatientId} />
       <ChatBotApp patientTextHistory={patientTextHistory} patientId={patientId} />
-      <UploadWav />
-      <TextForm />
-      <Stream />
+      {/* <UploadWav /> */}
+      {/* <TextForm /> */}
+      {/* <Stream /> */}
 
     </div>
   );

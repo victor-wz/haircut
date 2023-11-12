@@ -31,12 +31,12 @@ export default function Recorder(props) {
           .then(response => {
             console.log(response.data);
                 patientTextHistory.startPrompt();
-                patientTextHistory.append(response.data.transcript);
-                patientTextHistory.endPrompt();
+                // patientTextHistory.append(response.data.transcript);
+                // patientTextHistory.endPrompt();
 
-                patientTextHistory.startResponse();
-                patientTextHistory.append(response.data.response);
-                patientTextHistory.endResponse();
+                // patientTextHistory.startResponse();
+                // patientTextHistory.append(response.data.response);
+                // patientTextHistory.endResponse();
                 setLoading(false);
           })
           .catch(error => {
