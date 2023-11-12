@@ -1,0 +1,51 @@
+{
+  "Patient1": [
+    {
+      "hsaId": "SE000000000000-0000",
+      "illness": "cancer",
+      "careUnitReviewerFor": [
+        {
+          "hsaId": "SE000000000000-0000",
+          "displayName": "Any"
+        },
+        {
+          "hsaId": "SE000000000000-0000",
+          "displayName": "Medical"
+        },
+        {
+          "hsaId": "SE000000000000-0000",
+          "displayName": "Emergency"
+        },
+        {
+          "hsaId": "SE000000000000-0000",
+          "displayName": "Dental"
+        }
+      ]
+    }
+  ],
+  "Patient2": [
+    {
+      "hsaId": "SE000000000000-0000",
+      "illness": "parkinsons",
+      "careUnitReviewerFor": [
+        {
+          "hsaId": "SE000000000000-0000",
+          "displayName": "Any"
+        },
+        {
+          "hsaId": "SE000000000000-0000",
+          "displayName": "Medical"
+        },
+        {
+          "hsaId": "SE000000000000-0000",
+          "displayName": "Emergency"
+        },
+        {
+          "hsaId": "SE000000000000-0000",
+          "displayName": "Dental"
+        }
+      ]
+    }
+  ]
+}
+   

@@ -14,12 +14,12 @@ oai_transcriber = Transcriber()
 def hello():
     return 'Hello'
 
-@app.route('/api/patient/text_payload')
+@app.route('/api/patient/text_payload', methods=['POST'])
 def text_payload():
     data = request.get_json()
     patient_id = data['patient_id']
     text = data['text']
-    ag_res = oai_agent.process_text_payload(patient_id, text)
+    ag_res = oai_agent.process_text_payload(int(patient_id), text)
     return jsonify(ag_res)
 
 @app.route('/api/patient/audio_payload', methods=['POST'])
@@ -27,9 +27,9 @@ def audio_payload():
     if 'audio' not in request.files:
         return jsonify({'error': 'No file part'}), 400
     audio_file = request.files['audio']
+    patient_id = request.form.get('patient_id')
     transcript = oai_transcriber.transcribe(audio_file)
-    # TODO: patient id.
-    ag_res = oai_agent.process_text_payload(0, transcript)
+    ag_res = oai_agent.process_text_payload(int(patient_id), transcript)
     return jsonify(ag_res)
 
 if __name__ == '__main__':
