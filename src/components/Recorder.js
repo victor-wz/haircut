@@ -2,6 +2,7 @@ import { ReactMediaRecorder, useReactMediaRecorder } from "react-media-recorder"
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
+import { Mic, StopFill } from 'react-bootstrap-icons';
 
 export default function Recorder(props) {
 
@@ -20,6 +21,8 @@ export default function Recorder(props) {
           });
           const formData = new FormData();
           formData.append("audio", audiofile);
+          formData.append('patient_id', props.patientId);
+
           axios.post('http://127.0.0.1:5000/api/patient/audio_payload', formData)
           .then(response => {
             console.log(response.data);
@@ -44,13 +47,21 @@ export default function Recorder(props) {
 
 
     return (
-        <div className="recorder">
-          {/* <p>{status}</p> */}
-          <Button variant='success' onClick={startRecording}>Start Recording</Button>
-          {/* <button onClick={() => {stopRecording(); upload(mediaBlobUrl)}}>Stop Recording</button> */}
-          <Button variant='danger' onClick={stopRecording}>Stop Recording</Button>
-          <audio src={mediaBlobUrl} controls autoPlay loop />
-        </div>
+        <>
+            <Button 
+                variant='success' 
+                onClick={startRecording}
+                hidden={props.hidden || recording}
+            ><Mic/>
+            </Button>
+            <Button 
+                variant='danger' 
+                onClick={stopRecording}
+                hidden={props.hidden || !recording}
+            ><StopFill/>
+            </Button>
+            <audio src={mediaBlobUrl} controls autoPlay loop />
+        </>
       );
 
     // return <ReactMediaRecorder

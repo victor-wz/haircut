@@ -5,7 +5,6 @@ import UploadWav from './Audio';
 import TextForm from './Text';
 
 import ChatBotApp from './components/ChatBotApp';
-import Recorder from './components/Recorder';
 import TextHistory from './components/TextHistory';
 
 function App() {
@@ -13,10 +12,11 @@ function App() {
   const [textHistory, setTextHistory] = useState("");
   const textHistoryObj = new TextHistory(textHistory, setTextHistory);
 
+  const [patientId, setPatientId] = useState(0);
+
   return (
     <div className="App">
-      <ChatBotApp textHistoryObj={textHistoryObj}/>
-      <Recorder textHistoryObj={textHistoryObj}/>
+      <ChatBotApp textHistoryObj={textHistoryObj} patientId={patientId}/>
       <UploadWav />
       <TextForm />
     </div>

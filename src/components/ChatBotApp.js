@@ -3,6 +3,9 @@ import './ChatBotApp.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Row, Col } from 'react-bootstrap';
+import Recorder from './Recorder';
+import { Send } from 'react-bootstrap-icons';
+import Spinner from 'react-bootstrap/Spinner';
 
 const OpenAI = require("openai");
 
@@ -80,14 +83,22 @@ export default function ChatbotApp(props) {
               variant="dark"
               disabled={loading || prompt.length === 0}
               type="submit"
+              hidden={prompt.length === 0}
               className="send-button"
             >
-              {loading ? "Generating..." : "Generate"}
+              {loading ?  <Spinner animation="border" role="status" size="sm"/> : <Send/>}
             </Button>
+            <Recorder 
+              textHistoryObj={textHistoryObj} 
+              hidden={prompt.length > 0}
+              patientId={props.patientId}
+            />
             </Col>
           </Row>
         </Form>
       </div>
+
+
       
     </>
   );
