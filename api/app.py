@@ -28,11 +28,15 @@ def text_payload():
     data = request.get_json()
     patient_id = data['patient_id']
     text = data['text']
-    dir = 'examples/patient_1'
-    patient_data = [os.path.join(dir,file) for file in os.listdir('examples/patient_1')]
+    dir = 'examples/patient'+ str(patient_id) # get folder associated to patient
+    if os.path.isdir(dir):
+        patient_data = [os.path.join(dir,file) for file in os.listdir(dir)]
+    else:
+        patient_data = None
     ag_res = oai_agent.process_text_payload(int(patient_id), text,patient_data)
     mock_streaming(ag_res)
     return jsonify(ag_res)
+
 
 @app.route('/api/patient/audio_payload', methods=['POST'])
 def audio_payload():
@@ -46,7 +50,6 @@ def audio_payload():
     ag_res = oai_agent.process_text_payload(int(patient_id), transcript)
     mock_streaming(ag_res)
     return jsonify({"response":ag_res,"transcript":transcript})
-
 
 
 if __name__ == '__main__':
