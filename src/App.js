@@ -5,6 +5,7 @@ import UploadWav from './Audio';
 import TextForm from './Text';
 
 import ChatBotApp from './components/ChatBotApp';
+import Stream from './Stream';
 import TextHistory from './components/TextHistory';
 
 function App() {
@@ -19,6 +20,8 @@ function App() {
       <ChatBotApp textHistoryObj={textHistoryObj} patientId={patientId}/>
       <UploadWav />
       <TextForm />
+      <Stream />
+
     </div>
   );
 }
