@@ -71,7 +71,7 @@ class Agent:
 			status = self.client.beta.threads.runs.retrieve(
 			  thread_id=thread_id,
 			  run_id=run.id,
-			  instructions="When I give you a statement about medical notes of a patient, you remember them and reply with one word: Noted. Otherwise if I ask you a question, you answer the question."
+			#   instructions="When I give you a statement about medical notes of a patient, you remember them and reply with one word: Noted. Otherwise if I ask you a question, you answer the question."
 			  ).status
 			if status == 'completed':
 				completed = True
