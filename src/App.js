@@ -17,6 +17,7 @@ function App() {
 
   return (
     <div className="App">
+      {/* <PatientSelector patientId={patientId} setPatientId={setPatientId}/> */}
       <ChatBotApp textHistoryObj={textHistoryObj} patientId={patientId}/>
       <UploadWav />
       <TextForm />
