@@ -3,10 +3,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import { Mic, StopFill } from 'react-bootstrap-icons';
+import Spinner from 'react-bootstrap/Spinner';
 
 export default function Recorder(props) {
 
     const { status, startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({ audio: true });
+    const [loading, setLoading] = useState(false);
+
     const patientTextHistory = props.patientTextHistory;
 
     var recording = status === "recording" || status === "acquiring_media" || status === "stopping";
@@ -14,7 +17,8 @@ export default function Recorder(props) {
     React.useEffect(() => {
 
         async function uploadVoice() {
-            patientTextHistory.append("Uploading audio...");
+          setLoading(true);
+        //   patientTextHistory.append("Uploading audio...");
           const audioBlob = await fetch(mediaBlobUrl).then((r) => r.blob());
           const audiofile = new File([audioBlob], "audiofile.mpeg", {
             type: "audio/mpeg",
@@ -26,9 +30,14 @@ export default function Recorder(props) {
           axios.post('http://127.0.0.1:5000/api/patient/audio_payload', formData)
           .then(response => {
             console.log(response.data);
-              patientTextHistory.startResponse();
-              patientTextHistory.append(response.data);
-              patientTextHistory.endResponse();
+                patientTextHistory.startPrompt();
+                // patientTextHistory.append(response.data.transcript);
+                // patientTextHistory.endPrompt();
+
+                // patientTextHistory.startResponse();
+                // patientTextHistory.append(response.data.response);
+                // patientTextHistory.endResponse();
+                setLoading(false);
           })
           .catch(error => {
             console.error('Error uploading WAV file:', error);
@@ -46,14 +55,23 @@ export default function Recorder(props) {
             <Button 
                 variant='success' 
                 onClick={startRecording}
-                hidden={props.hidden || recording}
+                hidden={props.hidden || recording || loading}
             ><Mic/>
             </Button>
             <Button 
                 variant='danger' 
                 onClick={stopRecording}
-                hidden={props.hidden || !recording}
+                hidden={props.hidden || !recording || loading}
             ><StopFill/>
+            </Button>
+            <Button
+              variant="dark"
+              disabled={true} // always disabled (loading)
+              type="submit"
+              hidden={props.hidden || !loading}
+              className="send-button"
+            >
+                <Spinner animation="border" role="status" size="sm"/>
             </Button>
             {/* <audio src={mediaBlobUrl} controls autoPlay loop /> */}
         </>

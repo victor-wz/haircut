@@ -25,20 +25,24 @@ export default class TextHistory {
         }); 
     }
 
+    appendAlert(alertText) {
+        this.append("<div class=\"alert alert-primary\" role=\"alert\">" + alertText + "</div>");
+    }
+
     startResponse() {
-        this.append("<p><strong>Model: </strong>");
+        this.append("</p><p><strong>Sephora: </strong>");
     }
 
     endResponse() {
-        this.append("</p>");
+        // this.append("</p>");
     }
 
     startPrompt() {
-        this.append("<p><strong>You: </strong>");
+        this.append("</p><p><strong>You: </strong>");
     }
 
     endPrompt() {
-        this.append("</p>");
+        // this.append("</p>");
     }
 
     text() {

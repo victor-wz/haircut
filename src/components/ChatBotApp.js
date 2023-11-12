@@ -1,4 +1,3 @@
-import { useState } from "react"
 import './ChatBotApp.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -6,6 +5,10 @@ import { Row, Col } from 'react-bootstrap';
 import Recorder from './Recorder';
 import { Send } from 'react-bootstrap-icons';
 import Spinner from 'react-bootstrap/Spinner';
+import Stream from '../Stream';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
 
 const OpenAI = require("openai");
 
@@ -18,6 +21,38 @@ export default function ChatbotApp(props) {
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
   const patientTextHistory = props.patientTextHistory;
+
+
+  const [socket, setSocket] = useState(null);
+  // const [showAlert, setShowAlert] = useState(false);
+  // const [ignoredContent, setIgnoredContent] = useState('');
+
+  useEffect(() => {
+    // Initialize WebSocket connection
+    const socket = io('http://127.0.0.1:5000');
+    setSocket(socket);
+    
+    // Listen for updates from the server
+    socket.on('update_output', (data) => {
+      setLoading(false);
+    if (!data.partial_result.startsWith('!!!')) {
+      props.patientTextHistory.append(' ' + data.partial_result)
+      // setOutput((prevOutput) => prevOutput + ' ' + data.partial_result);
+      }
+    else {
+      // setShowAlert(true);
+      const cleanedContent = data.partial_result.replace(/!/g, '');
+      props.patientTextHistory.appendAlert("Request made for " + cleanedContent + ".")
+      // setIgnoredContent(cleanedContent);
+    }
+    });
+
+    return () => {
+      // Clean up the WebSocket connection
+      socket.disconnect();
+    };
+  }, []);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,31 +67,35 @@ export default function ChatbotApp(props) {
     try {
       // New
       patientTextHistory.startResponse();
-      const stream = await openai.chat.completions.create({
-        model: "gpt-3.5-turbo",
-        messages: [{ "role": "user", "content": prompt}],
-        stream: true,
-      });
-      for await (const part of stream) {
-        console.log(part.choices[0].delta);
 
-        if (part.choices[0].delta.content) {
-          patientTextHistory.append(part.choices[0].delta.content);
-        }
-      }
-      patientTextHistory.endResponse();
-
-      // const result = await openai.chat.completions.create({
+      // const stream = await openai.chat.completions.create({
       //   model: "gpt-3.5-turbo",
-      //   messages: [{"role": "user", "content": "Hello!"}],
+      //   messages: [{ "role": "user", "content": prompt}],
+      //   stream: true,
       // });
-      // console.log(result.choices[0].message);
-      //console.log("response", result.data.choices[0].text);
+      // for await (const part of stream) {
+      //   console.log(part.choices[0].delta);
+
+      //   if (part.choices[0].delta.content) {
+      //     patientTextHistory.append(part.choices[0].delta.content);
+      //   }
+      // }
+
+      axios.post('http://127.0.0.1:5000/api/patient/text_payload', { text: prompt, patient_id: props.patientId })
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error('Error submitting text:', error);
+      });
+
+
     } catch (e) {
       //console.log(e);
-      patientTextHistory.appendResponse("Something is going wrong, Please try again.");
+      patientTextHistory.append("Something is going wrong, Please try again.");
+      throw e;
     }
-    setLoading(false);
+    setPrompt("");
   };
 
 
