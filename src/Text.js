@@ -15,7 +15,7 @@ const TextForm = () => {
 
   const handleSubmit = () => {
     // Send the text to the Flask backend
-    axios.post('http://localhost:5000/api/patient/text_payload', { text:text, patient_id:patientId })
+    axios.post('http://127.0.0.1:5000/api/patient/text_payload', { text:text, patient_id:patientId })
       .then(response => {
         console.log(response.data);
       })
