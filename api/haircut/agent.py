@@ -13,9 +13,8 @@ class Agent:
 		# initialise assistant
 		self.assistant = self.client.beta.assistants.create(
 		name="Medical assistant",
-		description='You are great at logging medical notes for each patient each time I give you a message.' +
-   		'When the most recent message is a statement, only repeat what the message was.' +
-  		"When asked a question about the patient's medical history, you respond by answering the question.",
+		description="You log medical notes and answer questions about them",
+		instructions="When I give you a statement about medical notes of a patient, you remember them and reply with one word: Noted. Otherwise if I ask you a question, you answer the question.",
 		model="gpt-4-1106-preview",
 		tools=[{"type": "code_interpreter"}],
 )
@@ -61,7 +60,8 @@ class Agent:
 
 		run = self.client.beta.threads.runs.create(
 			thread_id=thread_id,
-			assistant_id=self.assistant.id
+			assistant_id=self.assistant.id,
+			instructions="When I give you a statement about medical notes of a patient, you remember them and reply with one word: Noted. Otherwise if I ask you a question, you answer the question."
 			)
 		
 		completed = False
@@ -70,7 +70,8 @@ class Agent:
 		while not completed:
 			status = self.client.beta.threads.runs.retrieve(
 			  thread_id=thread_id,
-			  run_id=run.id
+			  run_id=run.id,
+			  instructions="When I give you a statement about medical notes of a patient, you remember them and reply with one word: Noted. Otherwise if I ask you a question, you answer the question."
 			  ).status
 			if status == 'completed':
 				completed = True

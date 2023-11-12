@@ -22,8 +22,8 @@ const UploadWav = () => {
     const formData = new FormData();
     formData.append('audio', file);
     formData.append('patient_id', patientId);
-
-    axios.post('http://localhost:5000/api/patient/audio_payload', formData)
+    
+    axios.post('http://127.0.0.1:5000/api/patient/audio_payload', formData)
       .then(response => {
         console.log(response.data);
       })

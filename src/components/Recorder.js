@@ -1,61 +1,34 @@
 import { ReactMediaRecorder, useReactMediaRecorder } from "react-media-recorder";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button';
 
-export default function Recorder() {
-
-    // let audio, setAudio = useState(null);
-
-    // function upload(mediaBlobUrl) {
-    //     console.log("uploading...", mediaBlobUrl);
-    //     // debugger;
-    //     // if (audio != null) {
-    //         //load blob
-    //         var xhr_get_audio = new XMLHttpRequest();
-    //         xhr_get_audio.open('GET', mediaBlobUrl, true);
-    //         xhr_get_audio.responseType = 'blob';
-    //         xhr_get_audio.onload = function(e) {
-    //             if (this.status == 200) {
-    //                 var blob = this.response;
-    //                 //send the blob to the server
-    //                 var xhr_send = new XMLHttpRequest();
-    //                 var filename = new Date().toISOString();
-    //                 xhr_get_audio.onload = function (e) {
-    //                     if (this.readyState === 4) {
-    //                         console.log("Server returned: ", e.target.responseText);
-    //                     }
-    //                 };
-    //                 var fd = new FormData();
-    //                 fd.append("audio_data",blob, filename);
-    //                 xhr_send.open("POST", "http://localhost/uploadAudio", 
-    //                 true);
-    //                 xhr_send.send(fd);
-    //             }
-    //         };
-    //         xhr_get_audio.send();
-    //     // }
-    // } 
+export default function Recorder(props) {
 
     const { status, startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({ audio: true });
+    const textHistoryObj = props.textHistoryObj;
 
     React.useEffect(() => {
 
         async function uploadVoice() {
+          textHistoryObj.append("Uploading audio...");
           const audioBlob = await fetch(mediaBlobUrl).then((r) => r.blob());
-          debugger;
           const audiofile = new File([audioBlob], "audiofile.mpeg", {
             type: "audio/mpeg",
           });
           const formData = new FormData();
-          formData.append("file", audiofile);
-          await axios.post(
-            'localhost/uploadAudio',
-            formData,
-            {
-              "content-type": "multipart/form-data",
-            }
-          );
-    
+          formData.append("audio", audiofile);
+          axios.post('http://127.0.0.1:5000/api/patient/audio_payload', formData)
+          .then(response => {
+            console.log(response.data);
+            textHistoryObj.startResponse();
+            textHistoryObj.append(response.data);
+            textHistoryObj.endResponse();
+          })
+          .catch(error => {
+            console.error('Error uploading WAV file:', error);
+          });       
+          
         }
         if (mediaBlobUrl) {
           uploadVoice();
@@ -65,11 +38,11 @@ export default function Recorder() {
 
 
     return (
-        <div>
-          <p>{status}</p>
-          <button onClick={startRecording}>Start Recording</button>
+        <div className="recorder">
+          {/* <p>{status}</p> */}
+          <Button variant='success' onClick={startRecording}>Start Recording</Button>
           {/* <button onClick={() => {stopRecording(); upload(mediaBlobUrl)}}>Stop Recording</button> */}
-          <button onClick={stopRecording}>Stop Recording</button>
+          <Button variant='danger' onClick={stopRecording}>Stop Recording</Button>
           <audio src={mediaBlobUrl} controls autoPlay loop />
         </div>
       );
