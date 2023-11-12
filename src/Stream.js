@@ -21,6 +21,10 @@ export default function Stream(props) {
       props.patientTextHistory.append(data.partial_result)
 			// setOutput((prevOutput) => prevOutput + ' ' + data.partial_result);
 		  }
+    if (!data.partial_result.startsWith('???')) {
+        props.patientTextHistory.append(data.partial_result)
+        // setOutput((prevOutput) => prevOutput + ' ' + data.partial_result);
+        }
 		else {
 			// setShowAlert(true);
 			const cleanedContent = data.partial_result.replace(/!/g, '');

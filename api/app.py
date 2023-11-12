@@ -29,12 +29,12 @@ def text_payload():
     data = request.get_json()
     patient_id = data['patient_id']
     text = data['text']
-    dir = 'examples/patient'+ str(patient_id) # get folder associated to patient
+    dir = 'examples/patient-'+ str(patient_id) # get folder associated to patient
     if os.path.isdir(dir):
         patient_data = [os.path.join(dir,file) for file in os.listdir(dir) if file.endswith(tuple(allowed_extensions))]
     else:
         patient_data = None
-    print(patient_data)
+    print(patient_id)
     ag_res = oai_agent.process_text_payload(int(patient_id), text,patient_data)
     mock_streaming(ag_res)
     return jsonify(ag_res)
