@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button';
 
 const UploadWav = () => {
   const [file, setFile] = useState(null);
@@ -33,14 +34,14 @@ const UploadWav = () => {
   };
 
   return (
-    <div>
-      <label>
+    <div className="patient-id-container">
+      <label className="patient-id-label">
         Patient ID:
         <input type="number" value={patientId} onChange={handlePatientIdChange} />
       </label>
       <br />
-      <input type="file" accept=".wav, .mpeg, .m4a" onChange={handleFileChange} />
-      <button onClick={handleUpload}>Upload WAV File</button>
+      <input className="form-input" type="file" accept=".wav, .mpeg, .m4a" onChange={handleFileChange} />
+      <Button className="form-button" variant = "secondary" onClick={handleUpload}>Upload WAV File</Button>
     </div>
   );
 };
