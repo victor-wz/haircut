@@ -5,8 +5,14 @@ from haircut.transcribe import Transcriber
 
 app = Flask(__name__)
 CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+
 oai_agent = Agent()
 oai_transcriber = Transcriber()
+
+@app.route('/hello')
+def hello():
+    return 'Hello'
 
 @app.route('/api/patient/text_payload')
 def text_payload():
