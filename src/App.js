@@ -6,6 +6,7 @@ import TextForm from './Text';
 
 import ChatBotApp from './components/ChatBotApp';
 import Recorder from './components/Recorder';
+import Stream from './Stream';
 
 function App() {
   // const [data, setData] = useState({});
@@ -22,6 +23,8 @@ function App() {
       <Recorder />
       <UploadWav />
       <TextForm />
+      <Stream />
+
     </div>
   );
 }
