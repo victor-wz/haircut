@@ -26,4 +26,5 @@ api/venv/*
 api/__pycache__/*
 .env
 api/haircut/__pycache__/*
+/venv
 

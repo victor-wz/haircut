@@ -45,7 +45,6 @@ def audio_payload():
     audio_file = request.files['audio']
     patient_id = request.form.get('patient_id')
     transcript = oai_transcriber.transcribe(audio_file)
-    #print(transcript)
     mock_streaming(transcript)
     ag_res = oai_agent.process_text_payload(int(patient_id), transcript)
     mock_streaming(ag_res)
