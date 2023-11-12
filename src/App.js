@@ -6,20 +6,17 @@ import TextForm from './Text';
 
 import ChatBotApp from './components/ChatBotApp';
 import Recorder from './components/Recorder';
+import TextHistory from './components/TextHistory';
 
 function App() {
-  // const [data, setData] = useState({});
 
-  // useEffect(() => {
-  //   axios.get('http://localhost:5000/api/data')
-  //     .then(response => setData(response.data))
-  //     .catch(error => console.error('Error fetching data:', error));
-  // }, []);
+  const [textHistory, setTextHistory] = useState("");
+  const textHistoryObj = new TextHistory(textHistory, setTextHistory);
 
   return (
     <div className="App">
-      <ChatBotApp />
-      <Recorder />
+      <ChatBotApp textHistoryObj={textHistoryObj}/>
+      <Recorder textHistoryObj={textHistoryObj}/>
       <UploadWav />
       <TextForm />
     </div>

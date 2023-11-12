@@ -3,35 +3,29 @@ import './ChatBotApp.css';
 
 const OpenAI = require("openai");
 
-const ChatbotApp = () => {
+export default function ChatbotApp(props) {
 
   const openai = new OpenAI({
     apiKey: process.env.REACT_APP_OPENAI_API_KEY,
     dangerouslyAllowBrowser: true,
   });
   const [prompt, setPrompt] = useState("");
-  const [textHistory, setTextHistory] = useState("");
   const [loading, setLoading] = useState(false);
-
-  function appendResponse(text) {
-    setTextHistory(textHistory + "<p><strong>Model: </strong>" + text + "</p>");
-  }
-
-  function appendPrompt(text) {
-    setTextHistory(textHistory + "<p><strong>You: </strong>" + text + "</p>");
-  }
+  const textHistoryObj = props.textHistoryObj;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     console.log("Prompt: ", prompt);
-    appendPrompt(prompt);
 
-    var response = "";
+    textHistoryObj.startPrompt();
+    textHistoryObj.append(prompt);
+    textHistoryObj.endPrompt();
 
     try {
       // New
+      textHistoryObj.startResponse();
       const stream = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
         messages: [{ "role": "user", "content": prompt}],
@@ -41,10 +35,11 @@ const ChatbotApp = () => {
         console.log(part.choices[0].delta);
 
         if (part.choices[0].delta.content) {
-          response += part.choices[0].delta.content;
-          appendResponse(response);
+          textHistoryObj.append(part.choices[0].delta.content);
         }
       }
+      textHistoryObj.endResponse();
+
       // const result = await openai.chat.completions.create({
       //   model: "gpt-3.5-turbo",
       //   messages: [{"role": "user", "content": "Hello!"}],
@@ -53,7 +48,7 @@ const ChatbotApp = () => {
       //console.log("response", result.data.choices[0].text);
     } catch (e) {
       //console.log(e);
-      appendResponse("Something is going wrong, Please try again.");
+      textHistoryObj.appendResponse("Something is going wrong, Please try again.");
     }
     setLoading(false);
   };
@@ -62,7 +57,7 @@ const ChatbotApp = () => {
   return (
     <>
       <div className="text-history">
-        <div dangerouslySetInnerHTML={{__html: textHistory}}></div>
+        <div dangerouslySetInnerHTML={{__html: textHistoryObj.text()}}></div>
       </div>
 
       <div>
@@ -85,6 +80,3 @@ const ChatbotApp = () => {
     </>
   );
 };
-
-
-export default ChatbotApp;
