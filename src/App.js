@@ -20,7 +20,7 @@ function App() {
       <ChatBotApp textHistoryObj={textHistoryObj} patientId={patientId}/>
       <UploadWav />
       <TextForm />
-      <Stream />
+      {/* <Stream /> */}
 
     </div>
   );
