@@ -41,11 +41,6 @@ export default function Recorder(props) {
     
       }, [mediaBlobUrl]);
 
-      React.useEffect(() => {
-        console.log(status)
-      }, [status]);
-
-
     return (
         <>
             <Button 

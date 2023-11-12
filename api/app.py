@@ -6,6 +6,7 @@ from haircut.agent import Agent
 from haircut.transcribe import Transcriber
 
 app = Flask(__name__)
+app.config['CORS_HEADERS'] = 'Content-Type'
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
 socketio = SocketIO(app, cors_allowed_origins="*")
 oai_agent = Agent()
@@ -19,7 +20,7 @@ def mock_streaming(text):
     # Beause openai are gimps.
     for word in text.split(" "):
         socketio.emit('update_output', {'partial_result': word})
-        time.sleep(0.3)
+        time.sleep(0.1)
 
 @app.route('/api/patient/text_payload', methods=['POST'])
 def text_payload():
@@ -27,7 +28,7 @@ def text_payload():
     patient_id = data['patient_id']
     text = data['text']
     ag_res = oai_agent.process_text_payload(int(patient_id), text)
-    mock_streaming(ag_res)
+    # mock_streaming(ag_res)
     return jsonify(ag_res)
 
 @app.route('/api/patient/audio_payload', methods=['POST'])
@@ -38,7 +39,7 @@ def audio_payload():
     patient_id = request.form.get('patient_id')
     transcript = oai_transcriber.transcribe(audio_file)
     ag_res = oai_agent.process_text_payload(int(patient_id), transcript)
-    mock_streaming(ag_res)
+    # mock_streaming(ag_res)
     return jsonify(ag_res)
 
 if __name__ == '__main__':
