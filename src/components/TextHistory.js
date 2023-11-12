@@ -30,7 +30,7 @@ export default class TextHistory {
     }
 
     startResponse() {
-        this.append("</p><p><strong>Model: </strong>");
+        this.append("</p><p><strong>Sephora: </strong>");
     }
 
     endResponse() {
